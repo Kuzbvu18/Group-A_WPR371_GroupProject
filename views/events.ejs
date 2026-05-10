@@ -1,0 +1,49 @@
+<%- include('partials/header') %>
+
+<main class="main-content">
+    <h2 style="margin-bottom: 30px;">Upcoming <span class="gold-text">Exclusive</span> Events</h2>
+    <section style="width: 90%; max-width: 1200px; margin-bottom: 40px; display: flex; gap: 10px; flex-wrap: wrap;">
+
+    <input type="text" placeholder="Search events..." style="flex: 2; padding: 12px; background: #1a1a1a; border: 1px solid #d4af37; color: white; border-radius: 5px;">
+
+    <select style="flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 5px;">
+
+        <option>All Categories</option>
+
+        <option>Corporate</option>
+
+        <option>Music Festival</option>
+
+        <option>Workshop</option>
+
+    </select>
+
+    <input type="date" style="flex: 1; padding: 12px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 5px;">
+
+</section>
+    <div class="event-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 90%; max-width: 1200px;">
+        
+        <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 10px; overflow: hidden; transition: transform 0.3s; padding-bottom: 20px;">
+            <div style="height: 180px; background: #222; display: flex; align-items: center; justify-content: center; font-size: 3rem;">🎫</div>
+            <div style="padding: 20px; text-align: left;">
+                <h3 class="gold-text">Gauteng Summer Ball</h3>
+                <p style="color: #bbb; font-size: 0.9rem; margin: 10px 0;">The most anticipated luxury event of the season.</p>
+                <p><strong>Price:</strong> R2,500</p>
+                <button class="btn-gold" style="width: 100%; margin-top: 15px;">Secure Pass</button>
+            </div>
+        </div>
+
+        <div style="background: #1a1a1a; border: 1px solid #333; border-radius: 10px; overflow: hidden; padding-bottom: 20px;">
+            <div style="height: 180px; background: #222; display: flex; align-items: center; justify-content: center; font-size: 3rem;">💎</div>
+            <div style="padding: 20px; text-align: left;">
+                <h3 class="gold-text">Private Yacht Mixer</h3>
+                <p style="color: #bbb; font-size: 0.9rem; margin: 10px 0;">Elite networking for the tech and fashion industry.</p>
+                <p><strong>Price:</strong> R5,000</p>
+                <button class="btn-gold" style="width: 100%; margin-top: 15px;">Join Waitlist</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<%- include('partials/footer') %>

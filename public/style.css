@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #f4f4f4;
+    font-family: 'Segoe UI', sans-serif;
+    /* The Flexbox layout */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* This is the secret sauce */
+.main-content {
+    flex: 1 0 auto; /* Forces this area to take all available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+footer {
+    flex-shrink: 0; /* Ensures the footer stays at the bottom and doesn't squish */
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #333;
+}
+
+.gold-text {
+    color: #d4af37;
+}
+
+.btn-gold {
+    background-color: #d4af37;
+    color: #0a0a0a;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.btn-gold:hover {
+    background-color: #b8962e;
+    transform: scale(1.05);
+}
+.navbar {
+    background-color: #1a1a1a;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between; /* This pushes logo left, links right */
+    align-items: center;
+    border-bottom: 2px solid #d4af37;
+}
+
+.nav-links a {
+    color: #f4f4f4;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #d4af37;
+}

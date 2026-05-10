@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<main class="main-content">
+    <div style="background: #1a1a1a; padding: 40px; border-radius: 15px; border: 1px solid #d4af37; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <h2 class="gold-text" style="margin-bottom: 10px;">Client Login</h2>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 25px;">Access your exclusive event dashboard.</p>
+        
+        <form action="/login" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+            <div>
+                <label style="display: block; margin-bottom: 5px; font-size: 0.8rem; color: #d4af37;">EMAIL ADDRESS</label>
+                <input type="email" name="email" placeholder="e.g. name@campus.com" style="width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; color: white; border-radius: 5px;">
+            </div>
+            <div>
+                <label style="display: block; margin-bottom: 5px; font-size: 0.8rem; color: #d4af37;">PASSWORD</label>
+                <input type="password" name="password" placeholder="••••••••" style="width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; color: white; border-radius: 5px;">
+            </div>
+            <button class="btn-gold" type="submit" style="margin-top: 10px;">Sign In</button>
+        </form>
+        
+        <p style="margin-top: 20px; font-size: 0.8rem;">Don't have an account? <a href="/register" style="color: #d4af37; text-decoration: none;">Apply for Membership</a></p>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
