@@ -26,3 +26,11 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running live on http://localhost:${PORT}`);
 });
+
+app.use("/auth", require("./routes/authRoutes"));
+
+app.use("/events", require("./routes/eventRoutes"));
+
+app.use("/bookings", require("./routes/bookingRoutes"));
+
+app.use("/contact", require("./routes/contactRoutes"));
