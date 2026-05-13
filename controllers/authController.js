@@ -2,6 +2,14 @@ const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
 
+const session = require('express-session');
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'fallback-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true } 
+}));
+
 exports.register = async (req, res) => {
 
 try {
