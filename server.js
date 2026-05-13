@@ -3,6 +3,7 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
+const authController = require("./controllers/authController");
 
 dotenv.config();
 connectDB();
