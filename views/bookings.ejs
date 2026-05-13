@@ -29,11 +29,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr style="border-bottom: 1px solid #333;">
-                    <td style="padding: 15px;">Private Yacht Mixer</td>
-                    <td style="padding: 15px;">20 June 2026</td>
-                    <td style="padding: 15px;"><span style="color: #4CAF50;">Confirmed</span></td>
-                </tr>
+   <% if (bookings && bookings.length > 0) { %>
+        <% bookings.forEach(booking => { %>
+            <tr style="border-bottom: 1px solid #333;">
+                <td style="padding: 15px;"><%= booking.event.title %></td>
+                <td style="padding: 15px;"><%= new Date(booking.event.date).toLocaleDateString() %></td>
+                <td style="padding: 15px;">
+                    <span style="color: #4CAF50;"><%= booking.status %></span>
+                </td>
+            </tr>
+        <% }) %>
+    <% } else { %>
+        <tr>
+            <td colspan="3" style="padding: 30px; text-align: center; color: #666;">
+                No bookings found. <a href="/events" class="gold-text">Book your first event!</a>
+            </td>
+        </tr>
+    <% } %>             
             </tbody>
         </table>
     </div>
