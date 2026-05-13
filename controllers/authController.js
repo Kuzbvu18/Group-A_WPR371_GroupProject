@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
 
@@ -77,7 +77,7 @@ return res.status(400).send("Invalid credentials");
 
 req.session.user = {
 id: user._id,
-username: user.username,
+username: user.name,   
 role: user.role
 };
 
