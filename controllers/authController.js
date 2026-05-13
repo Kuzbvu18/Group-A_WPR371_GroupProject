@@ -1,103 +1,38 @@
-const bcrypt = require("bcryptjs");
-const { validationResult } = require("express-validator");
-const User = require("../models/User");
+const express = require('express');
+const path    = require('path');
+const app     = express();
+const PORT    = process.env.PORT || 3000;
 
-const session = require('express-session');
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'fallback-secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true } 
-}));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.json());                          
 
-exports.register = async (req, res) => {
+app.use(express.urlencoded({ extended: true }));   
+app.use(express.static(path.join(__dirname, 'public')));
 
-try {
+const mainRoutes = require('./routes/index');app.use('/', mainRoutes);
 
-const errors = validationResult(req);
-
-if (!errors.isEmpty()) {
-return res.status(400).json({
-errors: errors.array()
-});
-}
-
-const { username, email, password } = req.body;
-
-const existingUser = await User.findOne({ email });
-
-if (existingUser) {
-return res.status(400).send("Account already exists");
-}
-
-const hashedPassword = await bcrypt.hash(password, 10);
-
-const { name, email, password } = req.body;
-const user = new User({
-name,
-email,
-password: hashedPassword
-});
-
-await user.save();
-
-res.redirect("/login");
-
-} catch (err) {
-console.error(err.message);
-res.status(500).send("Server Error");
-}
-};
-
-exports.login = async (req, res) => {
-
-try {
-
-const errors = validationResult(req);
-
-if (!errors.isEmpty()) {
-return res.status(400).json({
-errors: errors.array()
-});
-}
-
-const { email, password } = req.body;
-
-const user = await User.findOne({ email });
-
-if (!user) {
-return res.status(400).send("Invalid credentials");
-}
-
-const isMatch = await bcrypt.compare(password, user.password);
-
-if (!isMatch) {
-return res.status(400).send("Invalid credentials");
-}
-
-req.session.user = {
-id: user._id,
-username: user.name,   
-role: user.role
-};
-
-res.redirect("/");
-
-} catch (err) {
-console.error(err.message);
-res.status(500).send("Server Error");
-}
-};
-
-exports.logout = (req, res) => {
-
-req.session.destroy((err) => {
-
-if (err) {
-return res.status(500).send("Logout failed");
-}
-
-res.clearCookie("connect.sid");
-res.redirect("/login");
-});
-};
+app.use((err, req, res, next) => {    
+console.error('Server error:', err.stack);    
+res.status(500).send('<h1>500 — Something went wrong</h1>');
+});app.use((req, res) => 
+  {    
+    res.status(404).send('<h1>404 — Page Not Found</h1><a href="/">Go Home</a>');
+  });app.listen(PORT, () => 
+  {    
+    console.log(`Server is running live on http://localhost:${PORT}`);
+    const express = require('express');const path    = require('path');
+    const app     = express();const PORT    = process.env.PORT || 3000;
+    
+    app.set('view engine', 'ejs');app.set('views', path.join(__dirname, 'views'));
+    app.use(express.json());                          
+    app.use(express.urlencoded({ extended: true }));   
+    app.use(express.static(path.join(__dirname, 'public')));
+    
+    const mainRoutes = require('./routes/index');app.use('/', mainRoutes);
+    app.use((err, req, res, next) => {    
+      console.error('Server error:', err.stack);    
+      res.status(500).send('<h1>500 — Something went wrong</h1>');});
+      app.use((req, res) => {    
+      res.status(404).send('<h1>404 — Page Not Found</h1><a href="/">Go Home</a>');});app.listen(PORT, () => 
+        {    console.log(`Server is running live on http://localhost:${PORT}`);});
