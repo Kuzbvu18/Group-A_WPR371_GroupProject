@@ -32,8 +32,9 @@ return res.status(400).send("Account already exists");
 
 const hashedPassword = await bcrypt.hash(password, 10);
 
+const { name, email, password } = req.body;
 const user = new User({
-username,
+name,
 email,
 password: hashedPassword
 });
