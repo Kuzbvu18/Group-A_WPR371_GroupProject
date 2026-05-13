@@ -23,7 +23,7 @@ A full-stack web application developed for managing tickets for events that allo
 
 # Project Overview
 
-Advan was developed to modernize and simplify the event booking process for organizations managing conferences, workshops, festivals, and private events.
+Advanced Events was developed to modernize and simplify the event booking process for organizations managing conferences, workshops, festivals, and private events.
 
 The platform solves common industry problems such as:
 - Overbooking
