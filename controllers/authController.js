@@ -1,55 +1,94 @@
-const User = require('../models/User');
+const bcrypt = require("bcrypt");
+const { validationResult } = require("express-validator");
+const User = require("../models/User");
 
 exports.register = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.render('register', { error: 'User already exists with this email!' });
-    }
+try {
 
-    await new User({ name, email, password }).save();
-    res.redirect('/login');
-  } catch (err) {
-    console.error(err);
-    res.render('register', { error: 'Server error during registration' });
-  }
+const errors = validationResult(req);
+
+if (!errors.isEmpty()) {
+return res.status(400).json({
+errors: errors.array()
+});
+}
+
+const { username, email, password } = req.body;
+
+const existingUser = await User.findOne({ email });
+
+if (existingUser) {
+return res.status(400).send("Account already exists");
+}
+
+const hashedPassword = await bcrypt.hash(password, 10);
+
+const user = new User({
+username,
+email,
+password: hashedPassword
+});
+
+await user.save();
+
+res.redirect("/login");
+
+} catch (err) {
+console.error(err.message);
+res.status(500).send("Server Error");
+}
 };
 
 exports.login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
 
-    if (!user || !(await user.comparePassword(password))) {
-      return res.render('login', { error: 'Invalid email or password' });
-    }
+try {
 
-    // Save user info in session
-    req.session.user = {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role
-    };
+const errors = validationResult(req);
 
-    // Redirect based on role
-    if (user.role === 'admin') {
-      res.redirect('/admin/events');
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.error(err);
-    res.render('login', { error: 'Server error' });
-  }
+if (!errors.isEmpty()) {
+return res.status(400).json({
+errors: errors.array()
+});
+}
+
+const { email, password } = req.body;
+
+const user = await User.findOne({ email });
+
+if (!user) {
+return res.status(400).send("Invalid credentials");
+}
+
+const isMatch = await bcrypt.compare(password, user.password);
+
+if (!isMatch) {
+return res.status(400).send("Invalid credentials");
+}
+
+req.session.user = {
+id: user._id,
+username: user.username,
+role: user.role
+};
+
+res.redirect("/");
+
+} catch (err) {
+console.error(err.message);
+res.status(500).send("Server Error");
+}
 };
 
 exports.logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) console.error(err);
-    res.redirect('/');
-  });
+
+req.session.destroy((err) => {
+
+if (err) {
+return res.status(500).send("Logout failed");
+}
+
+res.clearCookie("connect.sid");
+res.redirect("/login");
+});
 };
